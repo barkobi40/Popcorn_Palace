@@ -18,18 +18,18 @@
 
 ---
 
-## 📅 Overview
+##  Overview
 Popcorn Palace is a backend system that handles:
-- 🎬 Movie management
-- 🕒 Showtime scheduling
-- 🍿 Seat booking
-- 📄 Ticket reservation and customer handling
+-  Movie management
+-  Showtime scheduling
+-  Seat booking
+-  Ticket reservation and customer handling
 
 Built as part of a backend development assignment using Spring Boot and Dockerized PostgreSQL.
 
 ---
 
-## 🔧 Features
+##  Features
 
 ### Movies API
 | Endpoint | Method | Description |
@@ -55,7 +55,7 @@ Built as part of a backend development assignment using Spring Boot and Dockeriz
 
 ---
 
-## 💡 Tech Stack
+##  Tech Stack
 - Java 17
 - Spring Boot
 - Spring Data JPA
@@ -65,7 +65,7 @@ Built as part of a backend development assignment using Spring Boot and Dockeriz
 
 ---
 
-## 📄 Installation & Run
+##  Installation & Run
 
 ### Prerequisites:
 - Java 17+
@@ -89,7 +89,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
-## 📖 Project Structure
+##  Project Structure
 ```
 src/
 ├── controller/
@@ -103,7 +103,5 @@ src/
 
 ---
 
-## 🔮 API Documentation (Swagger)
+##  API Documentation (Swagger)
 After running the project, go to: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) ✨
-
--
