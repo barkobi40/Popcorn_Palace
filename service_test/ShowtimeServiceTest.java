@@ -1,9 +1,11 @@
-package com.tdp.popcorn_palace.service;
+package com.tdp.popcorn_palace.service_test;
 
 import com.tdp.popcorn_palace.model.Movie;
 import com.tdp.popcorn_palace.model.Showtime;
 import com.tdp.popcorn_palace.repository.MovieRepository;
 import com.tdp.popcorn_palace.repository.ShowtimeRepository;
+import com.tdp.popcorn_palace.service.ShowtimeService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -82,4 +84,23 @@ class ShowtimeServiceTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> showtimeService.getShowtimeById(showtimeId.toString()));
         assertEquals("Showtime not found", exception.getMessage());
     }
+
+    @Test
+    void createShowtime_withOverlap_shouldThrowException() {
+    when(movieRepository.findById(movieId)).thenReturn(Optional.of(movie));
+
+    Showtime existingShowtime = new Showtime();
+    existingShowtime.setTheater("Cinema 1");
+    existingShowtime.setStartTime("10:00 AM");
+    existingShowtime.setEndTime("12:00 PM");
+
+    when(showtimeRepository.findByTheater("Cinema 1"))
+        .thenReturn(List.of(existingShowtime));
+
+    RuntimeException exception = assertThrows(RuntimeException.class, () ->
+        showtimeService.createShowtime(movieId.toString(), "11:00 AM", "01:00 PM", 20.0));
+
+    assertEquals("Overlapping showtime in same theater", exception.getMessage());
+}
+
 }

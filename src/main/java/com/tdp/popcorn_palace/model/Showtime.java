@@ -14,7 +14,7 @@ public class Showtime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id; // ✅ שונה מ־String ל־UUID
+    private UUID id; 
 
 
     @ManyToOne(fetch = FetchType.EAGER)
