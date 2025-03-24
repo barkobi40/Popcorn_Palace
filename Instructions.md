@@ -1,4 +1,4 @@
-# 🎬 Popcorn Palace - Instructions
+#  Popcorn Palace - Instructions
 
 Welcome to the **Popcorn Palace** movie ticket booking system!
 
@@ -6,7 +6,7 @@ This document will guide you through setting up, running, and testing the backen
 
 ---
 
-## ✅ Prerequisites
+##  Prerequisites
 
 Please make sure the following are installed:
 
@@ -18,7 +18,7 @@ Please make sure the following are installed:
 
 ---
 
-## 📥 Clone the Repository
+##  Clone the Repository
 
 ```bash
 git clone https://github.com/barkobi40/Popcorn_Palace_SpringBoot.git
