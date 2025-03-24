@@ -21,5 +21,5 @@ Please make sure the following are installed:
 ## 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAMEbarkobi40/Popcorn_Palace_SpringBoot.git
+git clone https://github.com/barkobi40/Popcorn_Palace_SpringBoot.git
 cd Popcorn_Palace_SpringBoot
