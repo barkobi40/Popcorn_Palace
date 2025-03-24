@@ -1,7 +1,9 @@
 package com.tdp.popcorn_palace.model;
 
 import jakarta.persistence.*;
-import lombok.*; // <-- חשוב!
+import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -9,15 +11,22 @@ import lombok.*; // <-- חשוב!
 @NoArgsConstructor
 @AllArgsConstructor
 public class Seat {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    private int seatNumber;
-    private boolean booked;
-    private String customerId;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "showtime_id")
     private Showtime showtime;
+
+
+    @Column(name = "seat_number")
+    private String seatNumber;
+
+    @Column
+    private boolean booked;
+
+    @Column(name = "customer_id")
+    private String customerId;
 }

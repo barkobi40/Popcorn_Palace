@@ -2,17 +2,10 @@ package com.tdp.popcorn_palace.repository;
 
 import com.tdp.popcorn_palace.model.Showtime;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.UUID;
 
-public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
-
-    List<Showtime> findByTheater(String theater);
-
-    List<Showtime> findByTheaterAndStartTimeLessThanAndEndTimeGreaterThan(
-        String theater,
-        LocalDateTime endTime,
-        LocalDateTime startTime
-    );
+@Repository
+public interface ShowtimeRepository extends JpaRepository<Showtime, UUID> {
 }

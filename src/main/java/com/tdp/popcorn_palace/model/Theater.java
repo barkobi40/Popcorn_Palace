@@ -9,19 +9,14 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class Theater {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String title;
+    @Column(unique = true)
+    private String name;
 
-    private String genre;
-
-    private int duration;
-
-    private double rating;
-
-    private int releaseYear;
+    private int capacity;
 }

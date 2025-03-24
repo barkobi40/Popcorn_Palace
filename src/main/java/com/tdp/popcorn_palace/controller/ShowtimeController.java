@@ -5,32 +5,15 @@ import com.tdp.popcorn_palace.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/showtimes")
+@RequestMapping("/api/showtimes")
 public class ShowtimeController {
 
     @Autowired
     private ShowtimeService showtimeService;
-
-    @PostMapping
-    public Showtime addShowtime(
-            @RequestParam Long movieId,
-            @RequestParam String theater,
-            @RequestParam String startTime,
-            @RequestParam String endTime,
-            @RequestParam double price
-    ) {
-        return showtimeService.addShowtime(
-            movieId,
-            theater,
-            LocalDateTime.parse(startTime),
-            LocalDateTime.parse(endTime),
-            price
-        );
-    }
 
     @GetMapping
     public List<Showtime> getAllShowtimes() {
@@ -38,27 +21,22 @@ public class ShowtimeController {
     }
 
     @GetMapping("/{id}")
-    public Showtime getShowtime(@PathVariable Long id) {
+    public Showtime getShowtimeById(@PathVariable UUID id) {
         return showtimeService.getShowtimeById(id);
     }
 
+    @PostMapping
+    public Showtime createShowtime(@RequestBody Showtime showtime) {
+        return showtimeService.createShowtime(showtime);
+    }
+
     @PutMapping("/{id}")
-    public Showtime updateShowtime(
-            @PathVariable Long id,
-            @RequestParam String startTime,
-            @RequestParam String endTime,
-            @RequestParam double price
-    ) {
-        return showtimeService.updateShowtime(
-            id,
-            LocalDateTime.parse(startTime),
-            LocalDateTime.parse(endTime),
-            price
-        );
+    public Showtime updateShowtime(@PathVariable UUID id, @RequestBody Showtime showtime) {
+        return showtimeService.updateShowtime(id, showtime);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteShowtime(@PathVariable Long id) {
+    public void deleteShowtime(@PathVariable UUID id) {
         showtimeService.deleteShowtime(id);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SeatService {
@@ -18,26 +19,31 @@ public class SeatService {
     @Autowired
     private ShowtimeRepository showtimeRepository;
 
-    public Seat createSeat(Long showtimeId, int seatNumber) {
-        Showtime showtime = showtimeRepository.findById(showtimeId)
-            .orElseThrow(() -> new RuntimeException("Showtime not found"));
+    public List<Seat> getSeatsByShowtime(String showtimeId) {
+        return seatRepository.findByShowtimeId(UUID.fromString(showtimeId));
+    }
 
-        seatRepository.findByShowtimeIdAndSeatNumber(showtimeId, seatNumber)
-            .ifPresent(s -> { throw new RuntimeException("Seat already exists"); });
+    public Seat createSeat(String showtimeId, String seatNumber) {
+        UUID showtimeUUID = UUID.fromString(showtimeId);
+        Showtime showtime = showtimeRepository.findById(showtimeUUID)
+                .orElseThrow(() -> new RuntimeException("Showtime not found"));
+
+        seatRepository.findByShowtimeIdAndSeatNumber(showtimeUUID, seatNumber)
+                .ifPresent(s -> {
+                    throw new RuntimeException("Seat already exists");
+                });
 
         Seat seat = new Seat();
         seat.setSeatNumber(seatNumber);
         seat.setShowtime(showtime);
+        seat.setBooked(false);
+
         return seatRepository.save(seat);
     }
 
-    public List<Seat> getSeatsByShowtime(Long showtimeId) {
-        return seatRepository.findByShowtimeId(showtimeId);
-    }
-
-    public Seat bookSeat(Long seatId, String customerId) {
-        Seat seat = seatRepository.findById(seatId)
-            .orElseThrow(() -> new RuntimeException("Seat not found"));
+    public Seat bookSeat(String seatId, String customerId) {
+        Seat seat = seatRepository.findById(UUID.fromString(seatId))
+                .orElseThrow(() -> new RuntimeException("Seat not found"));
 
         if (seat.isBooked()) {
             throw new RuntimeException("Seat already booked");
@@ -48,9 +54,9 @@ public class SeatService {
         return seatRepository.save(seat);
     }
 
-    public Seat cancelSeat(Long seatId) {
-        Seat seat = seatRepository.findById(seatId)
-            .orElseThrow(() -> new RuntimeException("Seat not found"));
+    public Seat cancelSeat(String seatId) {
+        Seat seat = seatRepository.findById(UUID.fromString(seatId))
+                .orElseThrow(() -> new RuntimeException("Seat not found"));
 
         seat.setBooked(false);
         seat.setCustomerId(null);

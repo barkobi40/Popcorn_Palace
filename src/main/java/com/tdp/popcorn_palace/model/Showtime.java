@@ -1,10 +1,9 @@
 package com.tdp.popcorn_palace.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
@@ -12,19 +11,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Showtime {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id; // ✅ שונה מ־String ל־UUID
 
-    private String theater;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @OneToMany(mappedBy = "showtime", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "theater_id")
+    private Theater theater;
+
+    @Column(name = "start_time")
+    private String startTime;
+
+    @Column(name = "end_time")
+    private String endTime;
+
+    @Column
+    private double price;
 }
