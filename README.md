@@ -106,7 +106,4 @@ src/
 ## 🔮 API Documentation (Swagger)
 After running the project, go to: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) ✨
 
----
-
-## 🔝 License
-This project is part of the TDP 2025 Program and is released under the MIT License.
+-
